@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 响应式设计：确保网页在不同设备上自适应 -->
+<title>离心机故障代码（文字版）</title>
+<link rel="stylesheet" href="../styles.css"> <!-- 引入外部CSS文件 -->
+</head>
+
+<body>
+
+<h1>简洁版</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>故障代码</th>
+      <th>故障类型</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>E001</td>
+      <td>变频器加速运行过电流</td>
+    </tr>
+    <tr>
+      <td>E002</td>
+      <td>变频器减速运行过电流</td>
+    </tr>
+    <tr>
+      <td>E003</td>
+      <td>变频器恒速运行过电流</td>
+    </tr>
+    <tr>
+      <td>E004</td>
+      <td>变频器加速运行过电压</td>
+    </tr>
+    <tr>
+      <td>E005</td>
+      <td>变频器减速运行过电压</td>
+    </tr>
+    <tr>
+      <td>E006</td>
+      <td>变频器恒速运行过电压</td>
+    </tr>
+    <tr>
+      <td>E007</td>
+      <td>变频器控制电源过电压</td>
+    </tr>
+    <tr>
+      <td>E008</td>
+      <td>输入侧缺相</td>
+    </tr>
+    <tr>
+      <td>E009</td>
+      <td>输出侧缺相</td>
+    </tr>
+    <tr>
+      <td>E010</td>
+      <td>逆变模块保护</td>
+    </tr>
+    <tr>
+      <td>E011</td>
+      <td>逆变模块散热器过热</td>
+    </tr>
+    <tr>
+      <td>E012</td>
+      <td>整流模块散热器过热</td>
+    </tr>
+    <tr>
+      <td>E013</td>
+      <td>变频器过载</td>
+    </tr>
+    <tr>
+      <td>E014</td>
+      <td>电机过载</td>
+    </tr>
+    <tr>
+      <td>E015</td>
+      <td>紧急停车或外部设备故障</td>
+    </tr>
+    <tr>
+      <td>E016</td>
+      <td>E²PROM读写故障</td>
+    </tr>
+    <tr>
+      <td>E017</td>
+      <td>RS232/485通讯错误</td>
+    </tr>
+    <tr>
+      <td>E018</td>
+      <td>接触器未吸合</td>
+    </tr>
+    <tr>
+      <td>E019</td>
+      <td>电流检测电路故障</td>
+    </tr>
+    <tr>
+      <td>E020</td>
+      <td>系统干扰</td>
+    </tr>
+    <tr>
+      <td>E021</td>
+      <td>保留</td>
+    </tr>
+    <tr>
+      <td>E022</td>
+      <td>保留</td>
+    </tr>
+    <tr>
+      <td>E023</td>
+      <td>操作面板参数拷贝出错</td>
+    </tr>
+    <tr>
+      <td>E024</td>
+      <td>自整定不良</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>完整版</h1>
+
+<p>空白格表示与上方的格相同</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>故障代码</th>
+      <th>故障类型</th>
+      <th>可能的故障原因</th>
+      <th>对策</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>E001</td>
+      <td>变频器加速运行过电流</td>
+      <td>加速时间太短</td>
+      <td>延长加速时间</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>V/F曲线不合适</td>
+      <td>调整V/F曲线设置，调整手动转矩提升量或者正确设置电机参数保证自动转矩提升正常</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>瞬停发生时，对旋转中电机实施再启动</td>
+      <td>启动方式F2.00设置为转速跟踪再启动功能</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>电网电压低</td>
+      <td>检查输入电源</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>变频器功率太小</td>
+      <td>选用功率等级大的变频器</td>
+    </tr>
+    <tr>
+      <td>E002</td>
+      <td>变频器减速运行过电流</td>
+      <td>减速时间太短</td>
+      <td>延长减速时间</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>有势能负载或负载惯性转矩大</td>
+      <td>外加合适的能耗制动组件</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>变频器功率偏小</td>
+      <td>选用功率等级大的变频器</td>
+    </tr>
+    <tr>
+      <td>E003</td>
+      <td>变频器恒速运行过电流</td>
+      <td>负载发生突变</td>
+      <td>减小负载的突变</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>加减速时间设置太短</td>
+      <td>适当延长加减速时间</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>负载异常</td>
+      <td>进行负载检查</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>电网电压低</td>
+      <td>检查输入电源</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>变频器功率偏小</td>
+      <td>选用功率等级大的变频器</td>
+    </tr>
+    <tr>
+      <td>E004</td>
+      <td>变频器加速运行过电压</td>
+      <td>输入电压异常</td>
+      <td>检查输入电源</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>加速时间设置太短</td>
+      <td>适当延长加速时间</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>瞬时发生时，对旋转中电机实施再启动</td>
+      <td>将启动方式F2.00设置为转速跟踪再启动功能</td>
+    </tr>
+    <tr>
+      <td>E005</td>
+      <td>变频器减速运行过电压</td>
+      <td>减速时间太短(相对于再生能量)</td>
+      <td>延长减速时间</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>有势能负载或负载惯性转矩大</td>
+      <td>选择合适的能耗制动组件</td>
+    </tr>
+    <tr>
+      <td>E006</td>
+      <td>变频器恒速运行过电压</td>
+      <td>输入电压异常</td>
+      <td>检查输入电源</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>加减速时间设置太短</td>
+      <td>适当延长加减速时间</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>输入电压发生了异常变动</td>
+      <td>安装输入电抗器</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>负载惯性大</td>
+      <td>考虑采用能耗制动组件</td>
+    </tr>
+    <tr>
+      <td>E007</td>
+      <td>变频器控制电源过电压</td>
+      <td>输入电压异常</td>
+      <td>检查输入电源或寻求服务</td>
+    </tr>
+    <tr>
+      <td>E008</td>
+      <td>输入侧缺相</td>
+      <td>输入R.S.T有缺相</td>
+      <td>检查安装配线</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>检查输入电压</td>
+    </tr>
+    <tr>
+      <td>E009</td>
+      <td>输出侧缺相</td>
+      <td>输出U.V.W有缺相</td>
+      <td>检查输出配线</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>检查电机及电缆</td>
+    </tr>
+    <tr>
+      <td>E010</td>
+      <td>逆变模块保护</td>
+      <td>变频器瞬间过流</td>
+      <td>参见过流对策</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>输出三相有相间短路或接地短路</td>
+      <td>重新配线</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>风道堵塞或风扇损坏</td>
+      <td>疏通风道或更换风扇</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>环境温度过高</td>
+      <td>降低环境温度</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>控制板连线或插件松动</td>
+      <td>检查并重新连线</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>输出缺相等原因造成电流波形异常</td>
+      <td>检查配线</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>辅助电源损坏，驱动电压欠压</td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>逆变模块桥臂直通</td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>控制板异常</td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td>E011</td>
+      <td>逆变模块散热器过热</td>
+      <td>环境温度过高</td>
+      <td>降低环境温度</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>风道阻塞</td>
+      <td>清理风道</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>风扇损坏</td>
+      <td>更换风扇</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>逆变模块异常</td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td>E012</td>
+      <td>整流模块散热器过热</td>
+      <td>环境温度过高</td>
+      <td>降低环境温度</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>风道阻塞</td>
+      <td>清理风道</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>风扇损坏</td>
+      <td>更换风扇</td>
+    </tr>
+    <tr>
+      <td>E013</td>
+      <td>变频器过载</td>
+      <td>加速时间太短</td>
+      <td>延长加速时间</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>直流制动量过大</td>
+      <td>减小直流制动电流，延长制动时间</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>V/F曲线不合适</td>
+      <td>调整V/F曲线和转矩提升量</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>瞬停发生时，对旋转中电机实施再启动</td>
+      <td>将启动方式F2.00设置为转速跟踪再启动功能</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>电网电压过低</td>
+      <td>检查电网电压</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>负载过大</td>
+      <td>选择功率更大的变频器</td>
+    </tr>
+    <tr>
+      <td>E014</td>
+      <td>电机过载</td>
+      <td>V/F曲线不合适</td>
+      <td>正确设置V/F曲线和转矩提升量</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>电网电压过低</td>
+      <td>检查电网电压</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>通用电机长期低速大负载运行</td>
+      <td>长期低速运行，可选择专用电机</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>电机过载保护系数设置不正确</td>
+      <td>正确设置电机过载保护系数</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>电机堵转或负载突变过大</td>
+      <td>检查负载</td>
+    </tr>
+    <tr>
+      <td>E015</td>
+      <td>紧急停车或外部设备故障</td>
+      <td>非操作面板运行方式下，使用急停STOP键</td>
+      <td>查看F9.07中STOP键的功能定义</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>失速情况下使用急停STOP键</td>
+      <td>查看F9.07中STOP键的功能定义</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>失速状态持续1分钟，会自动报E015停机</td>
+      <td>正确设置FL.02及FL.03</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>外部故障急停端子闭合</td>
+      <td>处理外部故障后断开外部故障端子</td>
+    </tr>
+    <tr>
+      <td>E016</td>
+      <td>E²PROM读写故障</td>
+      <td>控制参数的读写发生错误</td>
+      <td>STOP/RESET键复位</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td>E017</td>
+      <td>RS232/485通讯错误</td>
+      <td>波特率设置不当</td>
+      <td>适当设置波特率</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>串行口通讯错误</td>
+      <td>按STOP/RESET键复位，寻求服务</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>故障报告警参数设置不当</td>
+      <td>修改FF.02、FF.03及FL.12的设置</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>上位机没有工作</td>
+      <td>检查上位机工作与否、接线是否正确。</td>
+    </tr>
+    <tr>
+      <td>E018</td>
+      <td>接触器未吸合</td>
+      <td>电网电压过低</td>
+      <td>检查电网电压</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>接触器损坏</td>
+      <td>更换主回路接触器，寻求服务</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>上电缓冲电阻损坏</td>
+      <td>更换缓冲电阻，寻求服务</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>控制回路损坏</td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>输入缺相</td>
+      <td>检查输入R.S.T接线</td>
+    </tr>
+    <tr>
+      <td>E019</td>
+      <td>电流检测电路故障</td>
+      <td>控制板连线或插件松动</td>
+      <td>检查并重新连线</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>辅助电源损坏</td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>霍尔器件损坏</td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>放大电路异常</td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td>E020</td>
+      <td>系统干扰</td>
+      <td>干扰严重</td>
+      <td>按STOP/RESET键复位或在电源输入侧外加电源滤波器</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>主控板DSP读写错误</td>
+      <td>按STOP/RESET键复位，寻求服务</td>
+    </tr>
+    <tr>
+      <td>E021</td>
+      <td>保留</td>
+      <td>保留</td>
+      <td>保留</td>
+    </tr>
+    <tr>
+      <td>E022</td>
+      <td>保留</td>
+      <td>保留</td>
+      <td>保留</td>
+    </tr>
+    <tr>
+      <td>E023</td>
+      <td>操作面板参数拷贝出错</td>
+      <td>操作面板参数不完整或者操作面板版本与主控板版本不一致</td>
+      <td>重新刷新操作面板数据和版本，先使用FP.03=1上传参数在使用FP.03=2或3下载。</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>操作面板E²PROM损坏</td>
+      <td>寻求服务</td>
+    </tr>
+    <tr>
+      <td>E024</td>
+      <td>自整定不良</td>
+      <td>电机铭牌参数设置错误</td>
+      <td>按电机铭牌正确设置参数</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>自整定超时</td>
+      <td>检查电机连线</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+
+</html>

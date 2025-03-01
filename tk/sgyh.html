@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事故隐患判定标准题库</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 5px 0;
+        }
+        .options label {
+            cursor: pointer;
+        }
+        #result-container {
+            margin-top: 20px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        .unanswered {
+            color: orange;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>事故隐患判定标准题库</h1>
+        <div id="quiz-container">
+            <!-- 题目和选项将在这里动态生成 -->
+        </div>
+        <button id="submit-button">提交答案</button>
+        <button id="restart-button" style="display: none;">重新答题</button>
+        <div id="result-container" style="display: none;">
+            <h2>答题结果</h2>
+            <div id="results"></div>
+        </div>
+    </div>
+    <script>
+        // 题库数据
+        const questions = [
+            {
+                question: "安全阀进出口阀门没有上锁管理。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "安全阀未经检定或超检定期使用。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "仓内粮食结顶、挂壁没有采取措施直接进入仓内底部进行清仓作业。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "操作工对操作规程掌握不熟或未经培训上岗作业。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "叉车作业未安棚顶警示灯或警示灯不好用。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "场所内灭火器配备不足、失压、筒体腐蚀严重、胶管脱落。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "厂内机动车辆超速行驶。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "厂内使用的翻斗车未落杆行驶。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "车间内可燃气体报警仪未与事故风机连锁或即使连锁不能正常使用。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "承压设备未泄压就进行检维修作业。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "倒运用的翻斗车在检修底盘时液压缸举升、维修发动机等驾驶室举升未做二次防护。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "地区架空电力线路穿越生产区且不符合国家标准要求。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "高压蒸汽管道、可燃气体管道或腐蚀液体管道法兰连接处缺少螺栓、螺栓腐蚀严重或未紧固。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "工艺卡片控制指标与DCS控制系统显示值不符。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "构成一级、二级重大危险源的危险化学品罐区未实现紧急切断功能；涉及毒性气体、液化气体、剧毒液体的一级、二级重大危险源的危险化学品罐区未配备独立的安全仪表系统；紧急切断系统、安全仪表系统未投入使用。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "光气、氯气等剧毒气体及硫化氢气体管道穿越除厂区（包括化工园区、工业园区）外的公共区域。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "化工生产装置未按国家标准要求设置双重电源供电；自动化控制系统、可燃和有毒气体检测报警系统未设置不间断电源。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "绞龙、刮板输送机缺少盖板或盖板未紧固。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "精细化工企业未按国家标准开展反应安全风险评估；未对原料、中间产品、产品及副产物等物料进行热稳定性测试；未应用评估结果完善安全管控措施。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "酒精、汽油罐车装卸车未先进行静电接地就作业。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "可燃、有毒有害气体检测仪未经检定使用。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "控制室和配电室内的采暖装置未采用钢管焊接或有法兰螺纹接头和阀门等。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "粮食接收开后侧箱板未采取措施。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "粮食清仓作业未配带对讲机且未明确联系方式。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "临边没有防护栏或护栏焊接不牢、有腐蚀。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "临时用电的线缆不具备架空铺设或地埋而沿路面铺设未采取防护措施。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "企业重大危险源安全生产风险监测预警系统现场感知、监测监控设备设施未正常运转。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "企业主要负责人未进行安全风险承诺公告；承诺公告与现场情况不相符合、虚假承诺。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "全压力式液化烃球罐未按国家标准设置注水措施。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "人员经常经过的设备外表面温度高于 50℃时，未进行保温或采取隔离措施。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "涉及‘两重点一重大’的生产装置、储存设施外部安全防护距离不符合国家标准要求。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及‘两重点一重大’生产装置和储存设施的企业主要负责人和主管生产、设备、技术、安全的负责人及安全生产管理人员不具备化学、化工、安全等相关专业大专及以上学历或者化工类中级及以上职称。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及甲乙类火灾、爆炸危险性的生产装置区内设置的控制室、交接班室未按相关标准进行抗爆设计、建设和加固。具有甲乙类火灾危险性、粉尘爆炸危险性、中毒危险性的厂房（含装置或车间）和仓库内设有办公室、休息室、外操室、巡检室；具有中毒危险性的厂房（含装置）内设有控制室。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及可燃和有毒气体泄漏的场所未按国家标准设置检测报警装置；可燃和有毒气体检测报警系统未投用或者处于故障、断电等非正常工况；检测报警系统报警未及时处置；爆炸危险场所未按国家标准安装使用防爆电气设备。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及危险化工工艺过程操作及化工自动化控制仪表作业的特种作业人员未取得特种作业操作证上岗操作。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及硝化、重氮化、过氧化反应的所在防火分区内设置超过3人（含3人）的固定操作岗位，或同一时间现场操作人员超过3人（含3人）。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及易燃易爆、剧毒介质的管道壁厚腐蚀减薄至不符合设计要求继续运行。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及易燃易爆、剧毒介质的设备、管道及管件打卡具带‘病’运行且未采取有效措施彻底消除隐患。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及重大危险源、重点监管危险化工工艺的生产装置、储存设施操作人员不具备高中及以上学历或者化工类中等及以上职业教育水平；涉及爆炸危险性化学品的生产装置和储存设施的操作人员不具备化工类大专及以上学历。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及重大危险源、重点监管危险化工工艺的生产装置、储存设施的安全联锁摘除未履行审批手续；履行了手续但未进行安全风险分析、未制定落实安全风险管控措施；安全联锁摘除未及时恢复。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及重大危险源、重点监管危险化工工艺的生产装置和储存设施，原料、工艺路线等方面发生的变更未履行变更管理手续。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "涉及重点监管危险化工工艺的装置未实现自动化控制、未实现紧急停车功能；装备的自动化控制系统、紧急停车系统未投入使用。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "使用切割设备切割物料不戴护目镜或防护面罩。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "使用淘汰落后安全技术工艺、设备目录列出的工艺、设备。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "事故通风的通风机未在室内及靠近外门的外墙上设置电气开关或启动按钮。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "手把砂轮机、固定式切割机缺少防护罩。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "特种设备未经年度或周期性检定继续使用。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "危险化学品生产、经营企业主要负责人和安全生产管理人员未依法经考核合格。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "未按国家标准设置安全阀、爆破片、紧急泄压阀或者未正常投用。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "未按照国家标准制定动火作业、受限空间作业等特殊作业管理制度或者制度未有效执行，包括特殊作业未履行审批手续、易燃易爆介质重大危险源罐区防火堤内动火作业未按特级动火作业办理审批手续、动火作业和受限空间作业未按规定进行气体分析、特殊作业过程无人监护或者监护人未经专项培训合格、特殊作业时以水封或者仅关闭阀门代替盲板作为隔断措施等情形。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "未建立与岗位相匹配的全员安全生产责任制；未建立重大危险源主要负责人、技术负责人、操作负责人的安全包保责任制并如实履职；未制定且有效实施安全风险分级管控和隐患排查治理双重预防制度。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "未将危险化学品储存在专用仓库内；危险化学品专用仓库未按国家标准分区分类储存危险化学品；超量、超品种储存危险化学品；相互禁配物质混放混存。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "未制定操作规程和关键工艺控制指标，关键工艺控制指标不符合设计要求；未按照关键工艺控制指标操作；关键工艺指标的报警、联锁失效；关键工艺报警未及时处置。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "消火栓长期被异物遮挡。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "新开发的危险化学品生产工艺未经小试、中试、工业化试验直接进行工业化生产；国内首次使用的化工工艺未经过省级人民政府有关部门组织的安全可靠性论证；新建装置未制定试生产方案投料开车。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "夜间粮食、饲料、原煤倒运，现场员工未穿反光马甲。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "液化烃、液氨、液氯、氟化氢等易燃易爆、有毒有害液化气体的充装未使用万向管道充装系统。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "用于作业平台的钢板腐蚀严重。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "油气储罐超温、超压、超液位操作；储罐变更储存介质但未履行变更管理手续；内浮顶储罐运行中浮盘落底。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "在含有粉尘设备上或设备内检维修动火作业未采取隔离、清理粉尘、增湿就作业。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "在粮堆上嬉戏打闹。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "在没有接到自动化控制联锁变更，擅自更改或摘除联锁。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "在役化工装置未经正规设计且未进行安全设计诊断；未落实设计诊断报告提出的建议措施。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "A"
+            },
+            {
+                question: "在有职业危害场所未按规定穿戴防护用品。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            },
+            {
+                question: "转动设备检维修作业未断电并加以确认。",
+                options: ["A.重点", "B.较大"],
+                correctAnswer: "B"
+            }
+        ];
+
+        // 随机打乱数组顺序
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // 动态生成题目和选项
+        function generateQuiz() {
+            const quizContainer = document.getElementById("quiz-container");
+            quizContainer.innerHTML = "";
+
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.className = "question";
+
+                const questionText = document.createElement("h3");
+                questionText.textContent = `${index + 1}. ${question.question}`;
+                questionDiv.appendChild(questionText);
+
+                const optionsList = document.createElement("ul");
+                optionsList.className = "options";
+
+                // 不打乱选项顺序，直接使用原始顺序
+                question.options.forEach(option => {
+                    const optionItem = document.createElement("li");
+                    const optionLabel = document.createElement("label");
+                    const optionInput = document.createElement("input");
+                    optionInput.type = "radio";
+                    optionInput.name = `question-${index}`;
+                    optionInput.value = option;
+                    optionLabel.appendChild(optionInput);
+                    optionLabel.appendChild(document.createTextNode(option));
+                    optionItem.appendChild(optionLabel);
+                    optionsList.appendChild(optionItem);
+                });
+
+                questionDiv.appendChild(optionsList);
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        // 检查答案并显示结果
+        function checkAnswers() {
+            const resultsContainer = document.getElementById("results");
+            resultsContainer.innerHTML = "";
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unansweredCount = 0;
+
+            questions.forEach((question, index) => {
+                const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
+                const resultItem = document.createElement("div");
+
+                if (selectedOption) {
+                    if (selectedOption.value === question.correctAnswer) {
+                        resultItem.className = "correct";
+                        resultItem.textContent = `第 ${index + 1} 题：正确`;
+                        correctCount++;
+                    } else {
+                        resultItem.className = "incorrect";
+                        resultItem.textContent = `第 ${index + 1} 题：错误（正确答案：${question.correctAnswer}）`;
+                        incorrectCount++;
+                    }
+                } else {
+                    resultItem.className = "unanswered";
+                    resultItem.textContent = `第 ${index + 1} 题：未作答（按错处理）`;
+                    incorrectCount++;
+                }
+
+                resultsContainer.appendChild(resultItem);
+            });
+
+            const resultSummary = document.createElement("p");
+            resultSummary.textContent = `总题数：${questions.length}，正确：${correctCount}，错误：${incorrectCount}`;
+            resultsContainer.appendChild(resultSummary);
+
+            document.getElementById("result-container").style.display = "block";
+            document.getElementById("submit-button").disabled = true;
+            document.getElementById("restart-button").style.display = "block";
+        }
+
+        // 重新开始答题
+        function restartQuiz() {
+            document.getElementById("quiz-container").innerHTML = "";
+            document.getElementById("results").innerHTML = "";
+            document.getElementById("result-container").style.display = "none";
+            document.getElementById("submit-button").disabled = false;
+            document.getElementById("restart-button").style.display = "none";
+            shuffleArray(questions); // 打乱题目顺序
+            generateQuiz(); // 重新生成题目
+        }
+
+        // 初始化题库
+        document.addEventListener("DOMContentLoaded", () => {
+            shuffleArray(questions); // 打乱题目顺序
+            generateQuiz(); // 生成题目
+            document.getElementById("submit-button").addEventListener("click", checkAnswers);
+            document.getElementById("restart-button").addEventListener("click", restartQuiz);
+        });
+    </script>
+</body>
+</html>

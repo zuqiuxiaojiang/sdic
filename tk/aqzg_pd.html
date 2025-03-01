@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安全资格考试题库</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            margin: 0 0 10px;
+            color: #2c3e50;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer; /* 整个选项可点击 */
+        }
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .option label {
+            flex: 1;
+            cursor: pointer;
+        }
+        .check-answer {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .check-answer:hover {
+            background-color: #2980b9;
+        }
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .correct {
+            color: #27ae60;
+        }
+        .incorrect {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>安全资格考试_判断</h1>
+        <div id="question-container"></div>
+    </div>
+
+    <!-- 加载JavaScript文件 -->
+    <script src="aqzg_pd.js"></script>
+    <script>
+        // 获取题库数据
+        const questionContainer = document.getElementById("question-container");
+
+        // 渲染题目
+        function renderQuestions() {
+            questionContainer.innerHTML = questionBank.map((question, index) => `
+                <div class="question">
+                    <h3>${index + 1}. ${question.question}</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q${index}-true" name="q${index}" value="true" class="option-input">
+                            <label for="q${index}-true">正确</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q${index}-false" name="q${index}" value="false" class="option-input">
+                            <label for="q${index}-false">错误</label>
+                        </div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(${index})">检查答案</button>
+                    <div class="feedback" id="feedback-${index}"></div>
+                </div>
+            `).join('');
+        }
+
+        // 检查答案
+        function checkAnswer(questionIndex) {
+            const question = questionBank[questionIndex];
+            const selectedOption = document.querySelector(`input[name="q${questionIndex}"]:checked`);
+            const feedbackElement = document.getElementById(`feedback-${questionIndex}`);
+
+            if (!selectedOption) {
+                feedbackElement.innerHTML = `<span class="incorrect">请选择一个选项！</span>`;
+                return;
+            }
+
+            const selectedValue = selectedOption.value === "true";
+            if (selectedValue === question.answer) {
+                feedbackElement.innerHTML = `<span class="correct">正确！</span>`;
+            } else {
+                feedbackElement.innerHTML = `<span class="incorrect">错误！正确答案是：${question.answer ? "正确" : "错误"}</span>`;
+            }
+        }
+
+        // 初始化渲染
+        renderQuestions();
+    </script>
+</body>
+</html>
