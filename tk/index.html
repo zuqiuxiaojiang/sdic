@@ -9,7 +9,7 @@
 <SCRIPT language=JavaScript>
 function password() {
 var testV = 1;
-var pass1 = prompt('《静夜思》的作者是谁？','');
+var pass1 = prompt('问：《静夜思》的作者是谁？','');
 while (testV < 3) {
 if (!pass1)
 history.go(-1);
@@ -18,7 +18,7 @@ alert('正确!');
 break;
 }
 testV+=-1;
-var pass1 = prompt('密码错误!请重新输入:');
+var pass1 = prompt('错误!请重新输入:');
 }
 if (pass1!="password" & testV ==3)
 history.go(-1);
