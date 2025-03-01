@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 响应式设计：确保网页在不同设备上自适应 -->
     <title>应知应会</title> <!-- 网页的标题 -->
     <link rel="stylesheet" href="../styles.css"> <!-- 引入外部CSS文件 -->
+<!--在<head>后加入如下代码-->
+<SCRIPT language=JavaScript>
+function password() {
+var testV = 1;
+var pass1 = prompt('请输入密码:','');
+while (testV < 3) {
+if (!pass1)
+history.go(-1);
+if (pass1 == "123456") {
+alert('密码正确!');
+break;
+}
+testV+=-1;
+var pass1 = prompt('密码错误!请重新输入:');
+}
+if (pass1!="password" & testV ==3)
+history.go(-1);
+return " ";
+}
+document.write(password());
+</SCRIPT>
+<!--在</head>前加入如上代码-->
 </head>
 <body>
     <div class="header"> <!-- 页面头部 -->
