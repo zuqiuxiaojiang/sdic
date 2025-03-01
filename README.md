@@ -1,1 +1,1 @@
-[![SDIC Logo](images/sdic.png)](index.html)
+index.html
