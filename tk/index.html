@@ -8,23 +8,32 @@
 <!--在<head>后加入如下代码-->
 <SCRIPT language=JavaScript>
 function password() {
-var testV = 1;
-var pass1 = prompt('问：《静夜思》的作者是谁？','');
-while (testV < 3) {
-if (!pass1)
-history.go(-1);
-if (pass1 == "李白") {
-alert('正确!');
-break;
+    var maxAttempts = 3; // 最大尝试次数
+    var correctPasswords = ["李白", "password", "admin"]; // 支持多个密码
+    var attempts = 0; // 当前尝试次数
+
+    while (attempts < maxAttempts) {
+        var pass1 = prompt('问：《静夜思》的作者是谁？', '');
+        if (!pass1) { // 如果用户取消输入
+            alert('您取消了操作，页面将返回上一页');
+            history.go(-1);
+            return; // 提前退出函数
+        }
+        if (correctPasswords.includes(pass1)) { // 检查密码是否在数组中
+            alert('密码正确！');
+            return "密码验证通过"; // 返回一个明确的值
+        } else {
+            attempts++;
+            alert('密码错误！您还有 ' + (maxAttempts - attempts) + ' 次机会');
+        }
+    }
+    alert('您已用完所有尝试机会，页面将返回上一页');
+    history.go(-1);
+    return "密码验证失败"; // 返回一个明确的值
 }
-testV+=-1;
-var pass1 = prompt('错误!请重新输入:');
-}
-if (pass1!="password" & testV ==3)
-history.go(-1);
-return " ";
-}
-document.write(password());
+
+// 调用函数，但不直接写入文档
+password();
 </SCRIPT>
 <!--在</head>前加入如上代码-->
 </head>
