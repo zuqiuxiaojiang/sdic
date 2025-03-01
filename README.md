@@ -1,1 +1,1 @@
-# 应知应会
+[![SDIC Logo](images/sdic.png)](index.html)
