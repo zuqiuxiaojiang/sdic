@@ -23,6 +23,10 @@
             text-align: center;
             color: #2c3e50;
         }
+        h6 {
+            text-align: center;
+            color: #7f8c8d;
+        }
         .question {
             margin-bottom: 20px;
         }
@@ -67,21 +71,52 @@
         .incorrect {
             color: #e74c3c;
         }
+        .statistics {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #34495e;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>安全资格考试_多选</h1>
+        <h6 id="total-questions"></h6>
         <div id="question-container"></div>
+        <!-- 答题结果统计区域 -->
+        <div class="statistics" id="statistics">
+            <div>答题统计：正确：<span id="correct-count">0</span>题，错误：<span id="incorrect-count">0</span>题</div>
+            <div>已答/总数：<span id="answered-count">0</span> / <span id="total-questions-value">0</span></div>
+            <div>正确率：<span id="accuracy-rate">0%</span></div>
+        </div>
     </div>
 
     <!-- 加载JavaScript文件 -->
     <script src="aqzg_duo.js"></script>
     <script>
         const questionContainer = document.getElementById("question-container");
+        const totalQuestionsElement = document.getElementById("total-questions");
+        const totalQuestionsValueElement = document.getElementById("total-questions-value");
+        const correctCountElement = document.getElementById("correct-count");
+        const incorrectCountElement = document.getElementById("incorrect-count");
+        const answeredCountElement = document.getElementById("answered-count");
+        const accuracyRateElement = document.getElementById("accuracy-rate");
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+
+        // 随机打乱数组顺序
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
 
         // 渲染题目
         function renderQuestions() {
+            shuffleArray(questionBank); // 打乱题目顺序
             questionContainer.innerHTML = questionBank.map((question, index) => `
                 <div class="question">
                     <h3>${index + 1}. ${question.question}</h3>
@@ -97,6 +132,8 @@
                     <div class="feedback" id="feedback-${index}"></div>
                 </div>
             `).join('');
+            totalQuestionsElement.textContent = `总题数：${questionBank.length}`;
+            totalQuestionsValueElement.textContent = questionBank.length;
         }
 
         // 检查答案
@@ -105,6 +142,7 @@
             const selectedOptions = document.querySelectorAll(`input[name="q${questionIndex}"]:checked`);
             const selectedValues = Array.from(selectedOptions).map(option => option.value);
             const feedbackElement = document.getElementById(`feedback-${questionIndex}`);
+            const options = document.querySelectorAll(`input[name="q${questionIndex}"]`);
 
             if (selectedValues.length === 0) {
                 feedbackElement.innerHTML = `<span class="incorrect">请选择至少一个选项！</span>`;
@@ -116,8 +154,34 @@
 
             if (isCorrect) {
                 feedbackElement.innerHTML = `<span class="correct">正确！</span>`;
+                correctCount++;
             } else {
                 feedbackElement.innerHTML = `<span class="incorrect">错误！正确答案是：${correctAnswers.join(', ')}</span>`;
+                incorrectCount++;
+            }
+
+            // 禁用选项
+            options.forEach(option => {
+                option.disabled = true;
+            });
+
+            // 更新答题统计
+            updateStatistics();
+        }
+
+        // 更新答题统计
+        function updateStatistics() {
+            const answeredCount = correctCount + incorrectCount;
+            answeredCountElement.textContent = answeredCount;
+            correctCountElement.textContent = correctCount;
+            incorrectCountElement.textContent = incorrectCount;
+
+            if (answeredCount > 0) {
+                const totalQuestions = parseInt(totalQuestionsValueElement.textContent);
+                const accuracyRate = ((correctCount / totalQuestions) * 100).toFixed(2) + "%";
+                accuracyRateElement.textContent = accuracyRate;
+            } else {
+                accuracyRateElement.textContent = "0%";
             }
         }
 
