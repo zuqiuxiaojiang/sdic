@@ -83,7 +83,11 @@
         <h1>安全资格考试_判断</h1>
         <h6 id="total-questions">总题数：<span id="total-count">0</span>题</h6>
         <div id="question-container"></div>
-        <div class="stats" id="stats">答题统计：正确 <span id="correct-count">0</span> 题，错误 <span id="incorrect-count">0</span> 题</div>
+        <div class="stats" id="stats">
+            <div>答题统计：正确 <span id="correct-count">0</span> 题，错误 <span id="incorrect-count">0</span> 题</div>
+            <div>已答/总数：<span id="answered-count">0</span>/<span id="total-count-stats">0</span></div>
+            <div>正确率：<span id="accuracy-rate">0.00%</span></div>
+        </div>
     </div>
 
     <!-- 加载JavaScript文件 -->
@@ -94,6 +98,9 @@
         const correctCount = document.getElementById("correct-count");
         const incorrectCount = document.getElementById("incorrect-count");
         const totalQuestions = document.getElementById("total-count");
+        const totalQuestionsStats = document.getElementById("total-count-stats");
+        const answeredCount = document.getElementById("answered-count");
+        const accuracyRate = document.getElementById("accuracy-rate");
 
         let correctAnswerCount = 0;
         let incorrectAnswerCount = 0;
@@ -113,6 +120,7 @@
 
             // 更新总题数
             totalQuestions.textContent = questionBank.length;
+            totalQuestionsStats.textContent = questionBank.length; // 同步更新总题数
 
             questionContainer.innerHTML = questionBank.map((question, index) => `
                 <div class="question">
@@ -155,6 +163,12 @@
                 incorrectAnswerCount++;
                 incorrectCount.textContent = incorrectAnswerCount;
             }
+
+            // 更新答题统计
+            answeredCount.textContent = correctAnswerCount + incorrectAnswerCount;
+            const total = questionBank.length;
+            const accuracy = ((correctAnswerCount / total) * 100).toFixed(2) + "%";
+            accuracyRate.textContent = accuracy;
 
             // 禁用选项
             options.forEach(option => {
