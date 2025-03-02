@@ -23,6 +23,10 @@
             text-align: center;
             color: #2c3e50;
         }
+        h6 {
+            text-align: center;
+            color: #7f8c8d;
+        }
         .question {
             margin-bottom: 20px;
         }
@@ -67,12 +71,25 @@
         .incorrect {
             color: #e74c3c;
         }
+        .result-statistics {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>安全资格考试_单选</h1>
+        <h6 id="total-questions">总题数：0</h6>
         <div id="question-container"></div>
+        <!-- 答题结果统计区域 -->
+        <div class="result-statistics" id="result-statistics">
+            <div>答题统计：正确：<span id="correct-count">0</span>题，错误：<span id="incorrect-count">0</span>题</div>
+            <div>已答/总数：<span id="answered-count">0</span> / <span id="total-questions-value">0</span></div>
+            <div>正确率：<span id="accuracy-rate">0%</span></div>
+        </div>
     </div>
 
     <!-- 加载JavaScript文件 -->
@@ -80,9 +97,26 @@
     <script>
         // 获取题库数据
         const questionContainer = document.getElementById("question-container");
+        const totalQuestionsElement = document.getElementById("total-questions");
+        const totalQuestionsValueElement = document.getElementById("total-questions-value");
+        const correctCountElement = document.getElementById("correct-count");
+        const incorrectCountElement = document.getElementById("incorrect-count");
+        const answeredCountElement = document.getElementById("answered-count");
+        const accuracyRateElement = document.getElementById("accuracy-rate");
+
+        // 随机打乱数组顺序
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
 
         // 渲染题目
         function renderQuestions() {
+            shuffleArray(questionBank); // 打乱题目顺序
+            totalQuestionsElement.textContent = `总题数：${questionBank.length}`;
+            totalQuestionsValueElement.textContent = questionBank.length; // 显示总题数
             questionContainer.innerHTML = questionBank.map((question, index) => `
                 <div class="question">
                     <h3>${index + 1}. ${question.question}</h3>
@@ -105,6 +139,7 @@
             const question = questionBank[questionIndex];
             const selectedOption = document.querySelector(`input[name="q${questionIndex}"]:checked`);
             const feedbackElement = document.getElementById(`feedback-${questionIndex}`);
+            const options = document.querySelectorAll(`input[name="q${questionIndex}"]`);
 
             if (!selectedOption) {
                 feedbackElement.innerHTML = `<span class="incorrect">请选择一个选项！</span>`;
@@ -116,6 +151,33 @@
                 feedbackElement.innerHTML = `<span class="correct">正确！</span>`;
             } else {
                 feedbackElement.innerHTML = `<span class="incorrect">错误！正确答案是：${question.answer}</span>`;
+            }
+
+            // 禁用选项，防止更改答案
+            options.forEach(option => {
+                option.disabled = true;
+            });
+
+            // 更新答题统计
+            updateStatistics();
+        }
+
+        // 更新答题统计
+        function updateStatistics() {
+            const correctFeedbacks = document.querySelectorAll(".feedback .correct").length;
+            const incorrectFeedbacks = document.querySelectorAll(".feedback .incorrect").length;
+            const answeredCount = correctFeedbacks + incorrectFeedbacks;
+
+            correctCountElement.textContent = correctFeedbacks;
+            incorrectCountElement.textContent = incorrectFeedbacks;
+            answeredCountElement.textContent = answeredCount;
+
+            if (answeredCount > 0) {
+                const totalQuestions = parseInt(totalQuestionsValueElement.textContent);
+                const accuracyRate = ((correctFeedbacks / totalQuestions) * 100).toFixed(2) + "%";
+                accuracyRateElement.textContent = accuracyRate;
+            } else {
+                accuracyRateElement.textContent = "0%";
             }
         }
 
