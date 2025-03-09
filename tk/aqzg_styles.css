@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#mode-selection {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#mode-selection button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+#exam-setup {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: none;
+}
+
+#exam-setup div {
+    margin-bottom: 10px;
+}
+
+#total-questions {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+#pagination {
+    margin-bottom: 20px;
+}
+
+#pagination button {
+    margin-right: 10px;
+}
+
+.question {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.question h3 {
+    margin-top: 0;
+}
+
+.option {
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    min-height: 1em;
+    max-height: 10em;
+    overflow-y: auto;
+    resize: none;
+}
+
+.media {
+    margin-top: 10px;
+}
+
+.media img,
+.media audio,
+.media video {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+.correct-answer {
+    margin-top: 5px;
+    color: blue;
+}
+
+#result-summary {
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+.check-answer-btn {
+    margin-top: 10px;
+}
