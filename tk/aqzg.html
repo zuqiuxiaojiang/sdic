@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线测试系统</title>
+    <link rel="stylesheet" href="aqzg_styles.css">
+</head>
+
+<body>
+    <div id="mode-selection">
+        <h1>选择模式</h1>
+        <button id="practice-mode">练习模式</button>
+        <button id="exam-mode">考试模式</button>
+    </div>
+    <div id="exam-setup" style="display: none;">
+        <h2>考试设置</h2>
+        <div>
+            <label for="single-choice-count">单选题数量：</label>
+            <input type="number" id="single-choice-count" min="0">
+        </div>
+        <div>
+            <label for="multiple-choice-count">多选题数量：</label>
+            <input type="number" id="multiple-choice-count" min="0">
+        </div>
+        <div>
+            <label for="true-false-count">判断题数量：</label>
+            <input type="number" id="true-false-count" min="0">
+        </div>
+        <div>
+            <label for="fill-in-the-blank-count">填空题数量：</label>
+            <input type="number" id="fill-in-the-blank-count" min="0">
+        </div>
+        <div>
+            <label for="short-answer-count">简答题数量：</label>
+            <input type="number" id="short-answer-count" min="0">
+        </div>
+        <button id="start-exam">开始考试</button>
+    </div>
+    <div id="total-questions" style="display: none;"></div>
+    <div id="pagination" style="display: none;">
+        <button data-page="all">☆全部</button>
+        <button data-page="单选题">单选题</button>
+        <button data-page="多选题">多选题</button>
+        <button data-page="判断题">判断题</button>
+        <button data-page="填空题">填空题</button>
+        <button data-page="简答题">简答题</button>
+    </div>
+    <div id="question-container" style="display: none;"></div>
+    <button id="submit-paper" style="display: none;">提交答卷</button>
+    <div id="result-summary" style="display: none;"></div>
+    <script src="aqzg_questionBank.js"></script>
+    <script src="aqzg_script.js"></script>
+</body>
+
+</html>
