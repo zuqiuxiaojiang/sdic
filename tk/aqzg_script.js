@@ -47,7 +47,10 @@ function renderQuestions(selectedQuestions, page = 'all') {
     questionContainer.innerHTML = '';
     questionContainer.style.display = 'block';
 
+    const submitPaperButton = document.getElementById('submit-paper'); // 获取全局提交按钮
+
     if (page === 'all') {
+        // 全部页面
         for (const [题型, 题目列表] of Object.entries(selectedQuestions)) {
             const 题目数量 = 题目列表.length;
             const 题型标题 = document.createElement('h2');
@@ -58,7 +61,10 @@ function renderQuestions(selectedQuestions, page = 'all') {
                 renderSingleQuestion(questionContainer, 题目, 题型, 索引);
             });
         }
+        // 显示全局提交按钮
+        submitPaperButton.style.display = 'block';
     } else {
+        // 单个题型页面
         const 题目列表 = selectedQuestions[page];
         if (题目列表) {
             const 题目数量 = 题目列表.length;
@@ -69,7 +75,18 @@ function renderQuestions(selectedQuestions, page = 'all') {
             题目列表.forEach((题目, 索引) => {
                 renderSingleQuestion(questionContainer, 题目, page, 索引);
             });
+
+            // 添加单独的提交按钮
+            const submitTypeButton = document.createElement('button');
+            submitTypeButton.textContent = '提交本题型';
+            submitTypeButton.style.display = 'block';
+            submitTypeButton.addEventListener('click', () => {
+                submitType(selectedQuestions[page], page); // 提交当前题型
+            });
+            questionContainer.appendChild(submitTypeButton);
         }
+        // 隐藏全局提交按钮
+        submitPaperButton.style.display = 'none';
     }
 }
 
@@ -77,6 +94,7 @@ function renderQuestions(selectedQuestions, page = 'all') {
 function renderSingleQuestion(questionContainer, 题目, 题型, 索引) {
     const 题目容器 = document.createElement('div');
     题目容器.classList.add('question');
+    题目容器.setAttribute('data-type', 题型); // 添加题型属性
 
     const 题目标题 = document.createElement('h3');
     题目标题.textContent = `${索引 + 1}. ${题目.题目}`;
@@ -243,15 +261,76 @@ function disableQuestionInputs(题目容器) {
     });
 }
 
-// 提交答卷
+// 提交单个题型的答卷
+function submitType(题目列表, 题型) {
+    let 答对数量 = 0;
+    let 答错数量 = 0;
+
+    const 题目容器列表 = document.querySelectorAll(`.question[data-type="${题型}"]`);
+    题目列表.forEach((题目, 索引) => {
+        const 题目容器 = 题目容器列表[索引];
+        const 结果容器 = 题目容器.querySelector('.result');
+        const 正确答案容器 = 题目容器.querySelector('.correct-answer');
+        结果容器.textContent = '';
+        正确答案容器.textContent = '';
+
+        let 用户答案;
+        if (题型 === '单选题' || 题型 === '判断题') {
+            const 选中选项 = 题目容器.querySelector('input[type="radio"]:checked');
+            用户答案 = 选中选项 ? 选中选项.value : null;
+        } else if (题型 === '多选题') {
+            const 选中选项列表 = Array.from(题目容器.querySelectorAll('input[type="checkbox"]:checked'));
+            用户答案 = 选中选项列表.map(选项 => 选项.value);
+        } else if (题型 === '填空题') {
+            const 输入框 = 题目容器.querySelector('input[type="text"]');
+            用户答案 = 输入框.value;
+        } else if (题型 === '简答题') {
+            const 文本框 = 题目容器.querySelector('textarea');
+            用户答案 = 文本框.value;
+        }
+
+        let 正确答案 = processAnswer(题目, 题目.答案);
+
+        let 回答正确;
+        if (题型 === '多选题') {
+            回答正确 = 用户答案.length === 正确答案.length && 用户答案.every(val => 正确答案.includes(val));
+        } else {
+            回答正确 = 用户答案 === 正确答案;
+        }
+
+        结果容器.textContent = 回答正确 ? '回答正确' : '回答错误';
+        结果容器.classList.add(回答正确 ? 'correct' : 'incorrect');
+
+        if (!回答正确) {
+            let 正确答案文本;
+            if (题型 === '多选题') {
+                正确答案文本 = 正确答案.join(', ');
+            } else {
+                正确答案文本 = 正确答案;
+            }
+            正确答案容器.textContent = `正确答案：${正确答案文本}`;
+            答错数量++;
+        } else {
+            答对数量++;
+        }
+
+        disableQuestionInputs(题目容器);
+    });
+
+    const 结果总结容器 = document.getElementById('result-summary');
+    结果总结容器.textContent = `在 ${题型} 中，答对 ${答对数量} 题，答错 ${答错数量} 题`;
+    结果总结容器.style.display = 'block';
+}
+
+// 提交全部题型的答卷
 function submitPaper(selectedQuestions) {
     let 答对数量 = 0;
     let 答错数量 = 0;
-    let 题目索引 = 0;
-    const 所有题目容器 = document.querySelectorAll('.question');
+
     for (const [题型, 题目列表] of Object.entries(selectedQuestions)) {
-        题目列表.forEach((题目) => {
-            const 题目容器 = 所有题目容器[题目索引];
+        const 题目容器列表 = document.querySelectorAll(`.question[data-type="${题型}"]`);
+        题目列表.forEach((题目, 索引) => {
+            const 题目容器 = 题目容器列表[索引];
             const 结果容器 = 题目容器.querySelector('.result');
             const 正确答案容器 = 题目容器.querySelector('.correct-answer');
             结果容器.textContent = '';
@@ -298,13 +377,12 @@ function submitPaper(selectedQuestions) {
             }
 
             disableQuestionInputs(题目容器);
-            题目索引++;
         });
     }
 
     const 结果总结容器 = document.getElementById('result-summary');
     结果总结容器.textContent = `答对 ${答对数量} 题，答错 ${答错数量} 题`;
-    resultSummary.style.display = 'block';
+    结果总结容器.style.display = 'block';
 }
 
 // 页面加载完成后初始化
@@ -325,7 +403,6 @@ window.addEventListener('load', () => {
         totalQuestions.style.display = 'block';
         pagination.style.display = 'block';
         questionContainer.style.display = 'block';
-        submitPaperButton.style.display = 'block';
 
         const selectedQuestions = questionBank;
         const total = calculateTotalQuestions(selectedQuestions);
@@ -373,7 +450,6 @@ window.addEventListener('load', () => {
             totalQuestions.style.display = 'block';
             pagination.style.display = 'block';
             questionContainer.style.display = 'block';
-            submitPaperButton.style.display = 'block';
 
             const paginationButtons = document.querySelectorAll('#pagination button');
             paginationButtons.forEach(button => {
